@@ -38,22 +38,23 @@ fi
 
 # 检测虚拟化架构是否为 OpenVZ
 if  [ ! -e '/usr/sbin/virt-what' ]; then
-    echo -e "Virt-What 安装失败，无法自动判断本机虚拟化架构，故请自行判断；本脚本不支持${red} OpenVZ ${none}。"
+    echo ""
+    echo -e "${red}Virt-What 安装失败${none}，无法自动判断本机虚拟化"
+	echo -e "架构，故请自行判断；本脚本不支持${red} OpenVZ ${none}。"
 else
     virtua=$(virt-what) 2>/dev/null
     [ ${virtua} == "openvz" ] && { echo -e "本机虚拟化架构为${red} OpenVZ ${none}，本脚本不支持${red} OpenVZ ${none}。"; exit 1; }
 fi
 
 # 执行内存释放
-echo ""
+echo "--------------------"
 echo "当前内存使用情况:"
 free -m
-echo ""
+echo "--------------------"
 echo "选择内存释放方式:"
 echo -e "${green}1. ${none}仅释放 pagecache"
 echo -e "${green}2. ${none}释放 dentries + inodes"
 echo -e "${green}3. ${none}释放 pagecache + dentries + inodes"
-echo "--------------------"
 echo -e "按${green} Ctrl + C ${none}可取消释放内存"
 echo "--------------------"
 read -p "输入数值进行选择: " selection
@@ -62,7 +63,6 @@ while [ "$selection" != 1 ] && [ "$selection" != 2 ] && [ "$selection" != 3 ]
 	echo -e "${red}输入错误${none}，你输的真的是${green} 1 ${none}或${green} 2 ${none}或${green} 3 ${none}吗？"
     read -p "请重新输入数值进行选择: " selection
 done
-echo ""
 echo "同步数据中..."
 sync
 echo "完成同步，开始释放内存..."
@@ -81,7 +81,7 @@ if [ "$selection" == 3 ]
         echo "释放 pagecache + dentries + inodes 中..."
         echo 3 > /proc/sys/vm/drop_caches
 fi
-echo ""
+echo "--------------------"
 echo "内存释放完成，清理后内存使用情况:"
 free -m
-echo ""
+echo "--------------------"
