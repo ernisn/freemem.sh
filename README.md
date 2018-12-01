@@ -4,7 +4,7 @@ A very simple script  to free memory &amp; cache on Linux system. 一个清理�
 ### 使用方法：
 
 ```bash
-wget --no-check-certificate 'https://raw.githubusercontent.com/ernisn/freemem.sh/master/freemem.sh' && bash freemem.sh
+wget --no-check-certificate 'https://raw.githubusercontent.com/ernisn/freemem.sh/master/freemem.sh' && chmod +x freemem.sh && bash freemem.sh
 ```
 
 ---
