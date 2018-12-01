@@ -7,6 +7,8 @@ A very simple script  to free memory &amp; cache on Linux system. 一个清理�
 wget --no-check-certificate 'https://raw.githubusercontent.com/ernisn/freemem.sh/master/freemem.sh' && chmod +x freemem.sh && bash freemem.sh
 ```
 
+**注意：**不支持 OpenVZ
+
 ---
 
 ### 使用到的命令：
