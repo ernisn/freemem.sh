@@ -1,5 +1,5 @@
 # freemem.sh
-A very simple script  to free memory &amp; cache on Linux system. 一个清理内存和 Cache 的简单脚本。
+Free memory & cache on Linux system. 一键清理内存和 Cache 。
 
 ### 使用方法：
 
