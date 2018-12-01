@@ -37,3 +37,7 @@ A very simple script  to free memory &amp; cache on Linux system.
 - 因为 Linux 的内核机制，一般情况下不需要特意释放 cache，这些缓存的内容可以增加文件读写效率。
 
 - 该方法只在 cache 占用大量内存导致系统内存不够用时使用，当 buffer/cached 占用内存并不大时用可能没什么效果。
+
+---
+
+更多解释可查看文章：[Linux 内存释放方法与简单分析](http://404guy.com/blog/20181107/linux-free-memory/)
