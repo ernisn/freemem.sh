@@ -1,6 +1,13 @@
 # freemem.sh
-A very simple script  to free memory &amp; cache on Linux system.
-一个清理内存的简单脚本。
+A very simple script  to free memory &amp; cache on Linux system. 一个清理内存的简单脚本。
+
+使用方法：
+
+```bash
+wget --no-check-certificate 'https://raw.githubusercontent.com/ernisn/freemem.sh/master/freemem.sh' && chmod a+x freemem.sh && ./freemem.sh
+```
+
+---
 
 使用到的命令：
    >仅释放 pagecache:
