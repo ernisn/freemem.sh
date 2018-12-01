@@ -4,7 +4,7 @@ red='\e[91m'
 green='\e[92m'
 none='\e[0m'
 
-selection=1
+[[ $(id -u) != 0 ]] && echo -e "请使用 ${red}root ${none}用户运行该脚本" && exit 1
 
 echo ""
 echo "当前内存使用情况:"
