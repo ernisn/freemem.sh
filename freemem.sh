@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Colors
+# 颜色
 red='\033[0;31m'
 green='\033[0;32m'
 none='\033[0m'
@@ -57,30 +57,23 @@ echo -e "${green}2. ${none}释放 dentries + inodes"
 echo -e "${green}3. ${none}释放 pagecache + dentries + inodes"
 echo -e "按${green} Ctrl + C ${none}可取消释放内存"
 echo "--------------------"
-read -p "输入数值进行选择: " selection
-while [ "$selection" != 1 ] && [ "$selection" != 2 ] && [ "$selection" != 3 ]
-    do
-	echo -e "${red}输入错误${none}，你输的真的是${green} 1 ${none}或${green} 2 ${none}或${green} 3 ${none}吗？"
-    read -p "请重新输入数值进行选择: " selection
-done
+read -p "输入数值进行选择（默认：1）: " selection
+if  [ ! -n "$selection" ] ; then
+    echo "未进行选择，默认仅释放 pagecache 。"
+else
+    while [ -n "$selection" ] && [ "$selection" != 1 ] && [ "$selection" != 2 ] && [ "$selection" != 3 ]
+        do
+	    echo -e "${red}输入错误${none}，你输的真的是${green} 1 ${none}或${green} 2 ${none}或${green} 3 ${none}吗？"
+        read -p "请重新输入数值进行选择（默认：1）: " selection
+		[ ! -n "$selection" ] && echo "未进行选择，默认仅释放 pagecache 。" 
+    done
+fi
 echo "同步数据中..."
 sync
 echo "完成同步，开始释放内存..."
-if [ "$selection" == 1 ]
-    then
-        echo "释放 pagecache 中..."
-        echo 1 > /proc/sys/vm/drop_caches
-fi
-if [ "$selection" == 2 ]
-    then
-        echo "释放 dentries + inodes 中..."
-        echo 2 > /proc/sys/vm/drop_caches
-fi
-if [ "$selection" == 3 ]
-    then
-        echo "释放 pagecache + dentries + inodes 中..."
-        echo 3 > /proc/sys/vm/drop_caches
-fi
+[ ! -n "$selection" ] || [ "$selection" == 1 ] && echo "释放 pagecache 中..." && echo 1 > /proc/sys/vm/drop_caches
+[ "$selection" == 2 ] && echo "释放 dentries + inodes 中..." && echo 2 > /proc/sys/vm/drop_caches
+[ "$selection" == 3 ] && echo "释放 pagecache + dentries + inodes 中..." && echo 3 > /proc/sys/vm/drop_caches
 echo "--------------------"
 echo "内存释放完成，清理后内存使用情况:"
 free -m
