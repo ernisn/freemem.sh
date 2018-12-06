@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Colors
-red='\e[91m'
-green='\e[92m'
-none='\e[0m'
+red='\033[0;31m'
+green='\033[0;32m'
+none='\033[0m'
 
 # 检测 root
 [[ $(id -u) != 0 ]] && echo -e "请使用${red} root ${none}用户运行该脚本。" && exit 1
