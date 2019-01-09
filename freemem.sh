@@ -39,8 +39,7 @@ fi
 # 检测虚拟化架构是否为 OpenVZ
 if  [ ! -e '/usr/sbin/virt-what' ]; then
     echo ""
-    echo -e "${red}Virt-What 安装失败${none}，无法自动判断本机虚拟化"
-	echo -e "架构，故请自行判断；本脚本不支持${red} OpenVZ ${none}。"
+    echo -e "${red}Virt-What 安装失败${none}，无法自动判断本机虚拟化架构，故请自行判断；本脚本不支持${red} OpenVZ ${none}。"
 else
     virtua=$(virt-what) 2>/dev/null
     [ ${virtua} == "openvz" ] && { echo -e "本机虚拟化架构为${red} OpenVZ ${none}，本脚本不支持${red} OpenVZ ${none}。"; exit 1; }
