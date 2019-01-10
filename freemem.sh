@@ -52,14 +52,22 @@ if  [ "$1" == "-p" ] ; then
 elif [ "$1" == "-di" ] ; then
     sync
     echo 2 > /proc/sys/vm/drop_caches && exit 1
-elif [ "$1" == "-all" ] ; then
+elif [ "$1" == "-pdi" ] ; then
     sync
     echo 3 > /proc/sys/vm/drop_caches && exit 1
+elif [ "$1" == "-s" ] ; then
+    sync
+    swapoff -a && swapon -a && exit 1
+elif [ "$1" == "-a" ] || [ "$1" == "-all" ] ; then
+    sync
+    echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a && exit 1
 elif [ "$#" != "0" ] ; then
     echo "————使用说明———————————————————————————————————————————————————————————————————"
     echo -e "  · bash freemem.sh ${green}-p ${none}仅释放 pagecache"
 	echo -e "  · bash freemem.sh ${green}-di ${none}释放 dentries + inodes"
-	echo -e "  · bash freemem.sh ${green}-all ${none}释放 pagecache + dentries + inodes"
+	echo -e "  · bash freemem.sh ${green}-pdi ${none}释放 pagecache + dentries + inodes"
+	echo -e "  · bash freemem.sh ${green}-s ${none}释放 swap"
+	echo -e "  · bash freemem.sh ${green}-a/-all ${none}释放 pagecache + dentries + inodes + swap"
 	echo "———————————————————————————————————————————————————————————————————————————————"
 	exit 1
 fi
@@ -74,15 +82,16 @@ echo "请选择内存释放方式:"
 echo -e "  ${green}1 ${none}仅释放 pagecache"
 echo -e "  ${green}2 ${none}释放 dentries + inodes"
 echo -e "  ${green}3 ${none}释放 pagecache + dentries + inodes"
+echo -e "  ${green}4 ${none}释放 swap"
 echo -e "  * 按${green} Ctrl + C ${none}可取消释放内存"
 echo "———————————————————————————————————————————————————————————————————————————————"
 read -p "输入数值进行选择 (默认:1): " selection
 if  [ ! -n "$selection" ] ; then
     echo "未进行选择，默认仅释放 pagecache 。"
 else
-    while [ -n "$selection" ] && [ "$selection" != 1 ] && [ "$selection" != 2 ] && [ "$selection" != 3 ]
+    while [ -n "$selection" ] && [ "$selection" != 1 ] && [ "$selection" != 2 ] && [ "$selection" != 3 ] && [ "$selection" != 4 ]
         do
-	    echo -e "${red}输入错误${none}，你输入的真的是${green} 1 ${none}或${green} 2 ${none}或${green} 3 ${none}吗？"
+	    echo -e "${red}输入错误${none}，请确认输入为${green} 1 ${none}-${green} 4 ${none}的整数"
         read -p "请重新输入数值进行选择 (默认:1): " selection
 		[ ! -n "$selection" ] && echo "未进行选择，默认仅释放 pagecache 。" 
     done
@@ -93,6 +102,7 @@ echo "  · 完成同步，开始释放内存..."
 [ ! -n "$selection" ] || [ "$selection" == 1 ] && echo "  · 释放 pagecache 中..." && echo 1 > /proc/sys/vm/drop_caches
 [ "$selection" == 2 ] && echo "  · 释放 dentries + inodes 中..." && echo 2 > /proc/sys/vm/drop_caches
 [ "$selection" == 3 ] && echo "  · 释放 pagecache + dentries + inodes 中..." && echo 3 > /proc/sys/vm/drop_caches
+[ "$selection" == 4 ] && echo "  · 释放 swap 中..." && swapoff -a && swapon -a
 echo "  · 内存释放完成。"
 
 # 清理后内存
