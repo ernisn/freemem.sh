@@ -13,7 +13,7 @@ wget --no-check-certificate 'https://raw.githubusercontent.com/ernisn/freemem.sh
 
 2. 该方法只在 cache 占用大量内存导致系统内存不够用时使用，当 buffer/cached 占用内存不大时用可能没什么效果。
 
-[![freemem4.0.png](https://i.loli.net/2019/01/08/5c343b75df114.png)](https://i.loli.net/2019/01/08/5c343b75df114.png)
+![freemem5.0.png](https://i.loli.net/2019/01/11/5c3852ee597b5.png)
 
 ---
 
