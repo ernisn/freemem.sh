@@ -30,7 +30,3 @@ dentries
 inodes
 
 - 表示文件的数据结构
-
----
-
-更多解释可查看文章：[Linux 内存释放方法与简单分析](http://404guy.com/blog/20181107/linux-free-memory/)
