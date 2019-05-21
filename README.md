@@ -1,3 +1,6 @@
+# freemem.sh
+Free memory & cache. 清理 Linux 内存和 Cache
+
 ### 使用方法：
 
 ```bash
